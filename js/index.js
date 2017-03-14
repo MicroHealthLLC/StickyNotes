@@ -71,6 +71,8 @@ var noteTemp =  '<div class="note">'
 
 var noteZindex = 1;
 function deleteNote(){
+    $(this).parent('.note').find('.title').val("");
+    $(this).parent('.note').find('.cnt').val("");
     $(this).parent('.note').hide("puff",{ percent: 133}, 250);
 };
 
@@ -83,20 +85,140 @@ function newNote() {
 	$('.remove').click(deleteNote);
 	$('textarea').autogrow();
 	
-  $('.note')
+    $('.note')
 	return false; 
 };
 
+
+
+
+var json;
+
+
+function handleFileSelect(evt) {
+	var files = evt.target.files;
+	var output = [];
+	for (var i = 0, f; f = files[i]; i++) {
+		var reader = new FileReader();
+		reader.onload = (function (theFile) {
+			return function (e) {
+				console.log('e readAsText = ', e);
+				console.log('e readAsText target = ', e.target);
+				try {
+					json = JSON.parse(e.target.result);
+                    $("#preview").val(json);
+				} catch (ex) {
+//                    $("#preview").val('ex when trying to parse json = ' + ex);
+					alert('ex when trying to parse json = ' + ex);
+				}
+			}
+		})(f);
+		reader.readAsText(f);
+	}
+}
+document.getElementById("loadjson").addEventListener("change", handleFileSelect, false);
+
+
+var expnotes;
+
+
+function gatherNotes() {
+    "use strict";
+    var i, expnotes = "";
+    var notes = document.querySelectorAll(".note");
+    var notetitle = document.querySelectorAll(".title");
+    var notecnt = document.querySelectorAll(".cnt");
+    for (i = 0; i < notes.length; i+=1) {
+        if (!((notetitle[i].value === "") && (notecnt[i].value === ""))) {
+            expnotes = expnotes + '{"title": "' + notetitle[i].value + '", "cnt": "' + notecnt[i].value + '"},';
+        }
+    }
+    expnotes = expnotes.slice(0,-1);
+    return expnotes;  
+}
+
+
+$("#export_notes").click(function() {
+    "use strict";
+    expnotes = gatherNotes();
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(expnotes));
+    var dlAnchorElem = document.getElementById("downloadAnchorElem");
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "newnotes.json");
+    dlAnchorElem.click();
+});
+
+
+$("#import_notes").click(function () {
+    "use strict";
+    $("#loadjson").val("");   
+    $("#importnotes").show();
+});
+
+
+$("#cancel_upload").click(function () {
+    "use strict";
+    $("#loadjson").val("");   
+    $("#preview").val("");   
+    $("#importnotes").hide();
+});
+
+
+$("#submit_upload").click(function () {
+    "use strict";
+    var result = ($("#preview").val()), thisnote = "", x, y;
+    JSON.stringify(result);
+    result = result.replace(/},{/g, "}~{");
+    result = result.split("~");
+    for (var i = 0; i < result.length; i+=1) {
+        $("#add_note").click();
+        thisnote = JSON.parse(result[i]);
+        x = document.querySelectorAll(".title");
+        x[x.length - 1].innerHTML = thisnote.title;
+        y = document.querySelectorAll(".cnt");
+        y[y.length - 1].innerHTML = thisnote.cnt;
+    }
+    $("#cancel_upload").click();
+});
+
+
+$("#reset_notes").click(function () {
+    "use strict";
+    $("#board").empty();
+    newNote();
+});
+
+
+$("#to_top").click(function () {
+    "use strict";
+    window.scrollTo(0, 0);
+});
+
+
+var thesenotes;
+
+function saveNotes() {
+    "use strict";
+    thesenotes = gatherNotes();
+    localStorage.setItem("thesenotes", thesenotes);
+}
 
 
 $(document).ready(function() {
     
     $("#board").height($(document).height());
     
-    $("#add_new").click(newNote);
+    $("#add_note").click(newNote);
     
-    $('.remove').click(deleteNote);
-    newNote();
-	  
+    $(".remove").click(deleteNote);
+
+    thesenotes = localStorage.getItem("thesenotes");
+    if (thesenotes !== "") {
+        $("#preview").val(thesenotes);
+        $("#submit_upload").click();
+    } else {
+        newNote();
+    }
+    
     return false;
 });
