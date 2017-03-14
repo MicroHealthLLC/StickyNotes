@@ -1,7 +1,7 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/edmondko/pen/udcHG.
-
- This is a little task I did for a job application. I thought it's a decent example for showing off my skills as a Front-ender. This example is purely visible only, it doesn't save any notes.
-
-This codepen can be used by anybody who finds it suitable for his needs.
- 
-Checkout my website at: http://edmondko.me
+This software is a modified version of "Sticky Notes" found at http://codepen.io/edmondko/pen/udcHG. 
+The following changes were made: 
+a) Automatic save to local storage; 
+b) "Export Notes" button/function (JSON, for non-blank notes only); 
+c) "Import Notes" button/function (JSON); 
+d) "Reset" button/function; 
+e) "To Top" button/function.
