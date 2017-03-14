@@ -148,7 +148,7 @@ a:focus {
   background-color: transparent;
   border: none;
   resize: vertical;
-  font-family: "Gloria Hallelujah", cursive;
+  font-family: "Gloria Hallelujah", "Comic Sans MS", cursive, sans-serif;
   width: 100%;
   padding: 5px;
 }
@@ -178,7 +178,9 @@ a:focus {
 .button {
   font: bold 16px Helvetica, Arial, sans-serif;
   color: #FFFFFF;
-  padding: 1em 2em;
+  margin-left: 10px;
+  padding: 1em 1.25em;
+  padding: 0.5em 1em;
   background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3));
   background: linear-gradient(top, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3));
   background-color: #00CC00;
@@ -223,11 +225,30 @@ a:focus {
   background-color: #EF0005;
 }
 
-#add_new {
+#add_note, #export_notes, #import_notes, #reset_notes {
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 100;
+}
+#add_note {
+  right: 382px;
+}
+#export_notes {
+  right: 242px;
+}
+#import_notes {
+  right: 104px;
+}
+#footerdiv {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background-color: transparent;
+}
+#to_top {
+  float:right;
+  margin: 20px;
 }
 
 .author {
@@ -235,3 +256,40 @@ a:focus {
   top: 20px;
   left: 20px;
 }
+
+
+#importnotes {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 100;
+  border: 1px solid #ccc;
+  background-color: #ddd;
+  width: 426px;
+  height: 180px;
+  margin: 10px auto;
+  padding: 20px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2) inset;
+}
+h4 {
+  font: bold 16px Helvetica, Arial, sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+#preview {
+  margin-top: 10px;
+  width: 100%;
+  height: 150px;
+  max-height: 150px;
+  resize: none;
+}
+
+#cancel_upload {
+  float: right;
+  margin: 20px 0px 20px auto;
+}
+#submit_upload {
+  float: right;
+  margin: 20px 0px 20px 10px;
+}
+
