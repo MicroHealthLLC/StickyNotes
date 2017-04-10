@@ -5,3 +5,4 @@ b) "Export Notes" button/function (JSON, for non-blank notes only);
 c) "Import Notes" button/function (JSON); 
 d) "Reset" button/function; 
 e) "To Top" button/function.
+f) Confirm delete note
