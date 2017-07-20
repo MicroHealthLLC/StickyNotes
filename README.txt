@@ -1,5 +1,5 @@
 These are the original Sticky Notes files by Edmond KO (located on codepen.io).
-Click here for the MODIFIED VERSION.
+Click here for the <a href="https://github.com/MicroHealthLLC/StickyNotes/tree/version-2">MODIFIED VERSION</a>.
 
 
 A Pen created at CodePen.io. You can find this one at http://codepen.io/edmondko/pen/udcHG.
